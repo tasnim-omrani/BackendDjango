@@ -1,7 +1,11 @@
-from django.urls import path
-from .views import TaskListCreateView, TaskDeleteView
+# myapp/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import TaskViewSet
+
+router = DefaultRouter()
+router.register(r'tasks', TaskViewSet)
 
 urlpatterns = [
-    path('tasks/', TaskListCreateView.as_view(), name='task-list-create'),
-    path('tasks/<int:pk>/', TaskDeleteView.as_view(), name='task-delete'),
+    path('', include(router.urls)),  # Remove 'api/' prefix here
 ]
